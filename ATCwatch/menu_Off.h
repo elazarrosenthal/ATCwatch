@@ -24,13 +24,11 @@ class OffScreen : public Screen
     virtual void pre()
     {
       static const char * btns[] = {"Yes", "No", ""};
-      lv_obj_t * mbox1 = lv_mbox_create(lv_scr_act(), NULL);
-      lv_mbox_set_text(mbox1, "Shutdown ?");
-      lv_mbox_add_btns(mbox1, btns);
+      lv_obj_t *mbox1 = lv_mbox_create(lv_scr_act(), "Shutdown ?", "Shutdown ?", btns, 0);
       lv_obj_set_width(mbox1, 200);
-      lv_obj_set_event_cb(mbox1, event_handler);
+      lv_obj_add_event_cb(mbox1, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
       lv_obj_align(mbox1, NULL, LV_ALIGN_CENTER, 0, 0);
-    }
+  }
 
     virtual void main()
     {
@@ -53,15 +51,16 @@ class OffScreen : public Screen
 
   private:
 
-    static void event_handler(lv_obj_t * obj, lv_event_t event)
-    {
-      if (event == LV_EVENT_VALUE_CHANGED) {
-        if ("Yes" == lv_mbox_get_active_btn_text(obj))
-          system_off();
-        else if ("No" == lv_mbox_get_active_btn_text(obj))
-          set_last_menu();
-      }
-    }
+
+  static void event_handler(lv_event_t *event)
+  {
+    lv_obj_t *obj = lv_event_get_current_target(event);
+
+    if ("Yes" == lv_msgbox_get_active_btn_text(obj))
+      system_off();
+    else if ("No" == lv_msgbox_get_active_btn_text(obj))
+      set_last_menu();
+  }
 };
 
 OffScreen offScreen;

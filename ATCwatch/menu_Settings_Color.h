@@ -30,89 +30,147 @@ class SettingsColorScreen : public Screen
 
       label_screen = lv_label_create(lv_scr_act());
       lv_label_set_text(label_screen, "Set Colors");
-      lv_obj_align(label_screen, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_align(label_screen, LV_ALIGN_TOP_LEFT, 0, 0);
 
       btn1 = lv_btn_create(lv_scr_act());
-      lv_obj_set_event_cb(btn1, lv_event_handler);
-      lv_obj_align_to(btn1, LV_ALIGN_IN_BOTTOM_MID, -55, 0);
-      lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
+      lv_obj_add_event_cb(btn1, event_handler_btn1, LV_EVENT_ALL, this);
+      lv_obj_align(btn1, LV_ALIGN_BOTTOM_MID, -55, 0);
+      // lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
       btn1_label = lv_label_create(btn1);
       lv_label_set_text(btn1_label, "Abort");
 
       btn2 = lv_btn_create(lv_scr_act());
-      lv_obj_set_event_cb(btn2, lv_event_handler);
-      lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);
-      lv_obj_align(btn2, NULL, LV_ALIGN_IN_BOTTOM_MID, 55, 0);
+      lv_obj_add_event_cb(btn2, event_handler_btn2, LV_EVENT_ALL, this);
+     // lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);
+      lv_obj_align(btn2, LV_ALIGN_BOTTOM_MID, 55, 0);
       btn2_label = lv_label_create(btn2);
       lv_label_set_text(btn2_label, "Save");
 
-      ddlist_main = lv_ddlist_create(lv_scr_act(), NULL);
-      lv_ddlist_set_options(ddlist_main,  "Milk\n"
+      ddlist_main = lv_dropdown_create(lv_scr_act());
+      lv_dropdown_set_options(ddlist_main,  "Milk\n"
                             "Gray\n"
                             "Black\n"
                             "Red\n"
                             "Green\n"
                             "Blue");
-      lv_obj_align(ddlist_main, NULL, LV_ALIGN_CENTER, -85, -50);
-      lv_obj_set_event_cb(ddlist_main, lv_event_handler);
-      lv_ddlist_set_selected(ddlist_main, main_color_save);
+      lv_obj_align(ddlist_main, LV_ALIGN_CENTER, -85, -50);
+      lv_obj_add_event_cb(ddlist_main, event_handler_ddlist_main, LV_EVENT_ALL, this);
+      lv_dropdown_set_selected(ddlist_main, main_color_save);
 
-      main_label = lv_label_create(lv_scr_act(), NULL);
+      main_label = lv_label_create(lv_scr_act());
       lv_label_set_text(main_label, "Main");
-      lv_obj_align(main_label, ddlist_main, LV_ALIGN_OUT_TOP_MID, 0, -2);
+      lv_obj_align_to(main_label, ddlist_main, LV_ALIGN_OUT_TOP_MID, 0, -2);
 
-      ddlist_grad = lv_ddlist_create(lv_scr_act(), NULL);
-      lv_ddlist_set_options(ddlist_grad,  "Milk\n"
+      ddlist_grad = lv_dropdown_create(lv_scr_act());
+      lv_dropdown_set_options(ddlist_grad,  "Milk\n"
                             "Gray\n"
                             "Black\n"
                             "Red\n"
                             "Green\n"
                             "Blue");
-      lv_obj_align(ddlist_grad, NULL, LV_ALIGN_CENTER, 0, -50);
-      lv_obj_set_event_cb(ddlist_grad, lv_event_handler);
-      lv_ddlist_set_selected(ddlist_grad, grad_color_save);
+      lv_obj_align(ddlist_grad, LV_ALIGN_CENTER, 0, -50);
+      lv_obj_add_event_cb(ddlist_grad, event_handler_ddlist_grad, LV_EVENT_ALL, this);
+      lv_dropdown_set_selected(ddlist_grad, grad_color_save);
 
       grad_label = lv_label_create(lv_scr_act());
       lv_label_set_text(grad_label, "Grad");
-      lv_obj_align(grad_label, ddlist_grad, LV_ALIGN_OUT_TOP_MID, 0, -2);
+      lv_obj_align_to(grad_label, ddlist_grad, LV_ALIGN_OUT_TOP_MID, 0, -2);
 
-      ddlist_font = lv_ddlist_create(lv_scr_act(), NULL);
-      lv_ddlist_set_options(ddlist_font, "Milk\n"
+      ddlist_font = lv_dropdown_create(lv_scr_act());
+      lv_dropdown_set_options(ddlist_font, "Milk\n"
                             "Gray\n"
                             "Black\n"
                             "Red\n"
                             "Green\n"
                             "Blue");
-      lv_obj_align(ddlist_font, NULL, LV_ALIGN_CENTER, 85, -50);
-      lv_obj_set_event_cb(ddlist_font, lv_event_handler);
-      lv_ddlist_set_selected(ddlist_font, font_color_save);
+      lv_obj_align(ddlist_font, LV_ALIGN_CENTER, 85, -50);
+      lv_obj_add_event_cb(ddlist_font, event_handler_ddlist_font, LV_EVENT_ALL, this);
+      lv_dropdown_set_selected(ddlist_font, font_color_save);
 
       font_label = lv_label_create(lv_scr_act());
       lv_label_set_text(font_label, "Font");
       lv_obj_align_to(font_label, ddlist_font, LV_ALIGN_OUT_TOP_MID, 0, -2);
     }
 
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    static void event_handler_btn1(lv_event_t * e)
     {
-      if (object == btn1 && event == LV_EVENT_CLICKED) {
-        set_main_color(main_color_save);
-        set_grad_color(grad_color_save);
-        set_font_color(font_color_save);
-        set_last_menu();
-      } else if (object == btn2 && event == LV_EVENT_CLICKED) {
+        lv_event_code_t code = lv_event_get_code(e);
+        SettingsColorScreen * p = (SettingsColorScreen * ) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_CLICKED) {
+          set_main_color(p->main_color_save);
+          set_grad_color(p->grad_color_save);
+          set_font_color(p->font_color_save);
+          set_last_menu();
+        }
+    }
+
+    static void event_handler_btn2(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        SettingsColorScreen * p = (SettingsColorScreen * ) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_CLICKED) {
         set_last_menu();
         set_motor_ms(35);
-      } else if (object == ddlist_main && event == LV_EVENT_VALUE_CHANGED) {
-        set_main_color(lv_ddlist_get_selected(ddlist_main));
-        set_gray_screen_style();
-      } else if (object == ddlist_grad && event == LV_EVENT_VALUE_CHANGED) {
-        set_grad_color(lv_ddlist_get_selected(ddlist_grad));
-        set_gray_screen_style();
-      } else if (object == ddlist_font && event == LV_EVENT_VALUE_CHANGED) {
-        set_font_color(lv_ddlist_get_selected(ddlist_font));
-        set_gray_screen_style();
-      }
+        }
     }
+
+    static void event_handler_ddlist_main(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        SettingsColorScreen * p = (SettingsColorScreen * ) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_VALUE_CHANGED) {
+        set_main_color(lv_dropdown_get_selected(p->ddlist_main));
+        set_gray_screen_style();
+        }
+    }
+
+    static void event_handler_ddlist_font(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        SettingsColorScreen * p = (SettingsColorScreen * ) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_VALUE_CHANGED) {
+        set_font_color(lv_dropdown_get_selected(p->ddlist_font));
+        set_gray_screen_style();
+        }
+    }
+
+    static void event_handler_ddlist_grad(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        SettingsColorScreen * p = (SettingsColorScreen * ) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_VALUE_CHANGED) {
+        set_font_color(lv_dropdown_get_selected(p->ddlist_font));
+        set_gray_screen_style();
+        }
+    }
+
+
+    // virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    // {
+    //   if (object == btn1 && event == LV_EVENT_CLICKED) {
+    //     set_main_color(main_color_save);
+    //     set_grad_color(grad_color_save);
+    //     set_font_color(font_color_save);
+    //     set_last_menu();
+    //   } else if (object == btn2 && event == LV_EVENT_CLICKED) {
+    //     set_last_menu();
+    //     set_motor_ms(35);
+    //   } else if (object == ddlist_main && event == LV_EVENT_VALUE_CHANGED) {
+    //     set_main_color(lv_dropdown_get_selected(ddlist_main));
+    //     set_gray_screen_style();
+    //   } else if (object == ddlist_grad && event == LV_EVENT_VALUE_CHANGED) {
+    //     set_grad_color(lv_dropdown_get_selected(ddlist_grad));
+    //     set_gray_screen_style();
+    //   } else if (object == ddlist_font && event == LV_EVENT_VALUE_CHANGED) {
+    //     set_font_color(lv_dropdown_get_selected(ddlist_font));
+    //     set_gray_screen_style();
+    //   }
+    // }
 
     virtual void up()
     {

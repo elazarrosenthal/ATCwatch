@@ -21,7 +21,6 @@
 #include "time.h"
 #include "push.h"
 
-
 #define buffer_lcd_size LV_HOR_RES_MAX * 30
 static lv_disp_buf_t disp_buf;
 static lv_color_t buf[buffer_lcd_size];
@@ -45,8 +44,7 @@ lv_indev_state_t statecast(bool state)
 		return  lv_indev_state_t::LV_INDEV_STATE_PRESSED;
 }
 
-// /work0/elazar/watch/watchtest2/ATCwatch/ATCwatch/display.cpp:91:21: error: invalid conversion from 'void*' to 'void (*)(_lv_indev_drv_t*, lv_indev_data_t*)' [-fpermissive]
-// bool my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
+
 void my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
 {
   bool touched = false;
@@ -67,7 +65,6 @@ void my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
   data->state = statecast(touched);
   data->point.x = touch_data.xpos;
   data->point.y = touch_data.ypos;
-  // return false;
 }
 
 void inc_tick() {
@@ -77,7 +74,6 @@ void inc_tick() {
 void init_display() {
   initDisplay();
   lv_init();
-  // lv_disp_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
   lv_disp_draw_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
 
   lv_disp_drv_t disp_drv;

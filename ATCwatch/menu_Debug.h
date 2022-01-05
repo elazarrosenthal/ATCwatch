@@ -26,7 +26,7 @@ class DebugScreen : public Screen
     {
       label = lv_label_create(lv_scr_act());
       lv_label_set_text(label, "Debug");
-      lv_obj_align(label,  LV_ALIGN_TOP_LEFT, 0, 0);
+      lv_obj_align(label, LV_ALIGN_TOP_LEFT, 0, 0);
 
       label_millis = lv_label_create(lv_scr_act());
       lv_label_set_text(label_millis, "Millis:");
@@ -38,11 +38,11 @@ class DebugScreen : public Screen
 
       label_reset = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label_reset, "Reset: %i", NRF_POWER->RESETREAS);
-      lv_obj_align(label_reset,  LV_ALIGN_TOP_LEFT, 10, 65);
+      lv_obj_align(label_reset, LV_ALIGN_TOP_LEFT, 10, 65);
 
       label_wakeup = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label_wakeup, "Wakeup: %s", wakeup_reason[get_wakeup_reason()]);
-      lv_obj_align(label_wakeup,  LV_ALIGN_TOP_LEFT, 10, 85);
+      lv_obj_align(label_wakeup, LV_ALIGN_TOP_LEFT, 10, 85);
 
       label_debug = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label_debug, "Debugmode: %s", (DWT->CYCCNT ? "Disabled" : "Enabled"));

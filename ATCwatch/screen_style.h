@@ -9,13 +9,6 @@
 #include "Arduino.h"
 #include <lvgl.h>
 
-//lv_palette_t::LV_PALETTE_GREY
-//lv_palette_t::LV_PALETTE_BLACK
-//lv_palette_t::LV_PALETTE_RED
-//lv_palette_t::LV_PALETTE_GREEN
-//lv_palette_t::LV_PALETTE_BLUE
-//
-
 lv_color_t color_list[] = {lv_color_hsv_to_rgb(10, 5, 95),
        	lv_color_black(),
        	lv_palette_t::LV_PALETTE_RED,

@@ -31,13 +31,13 @@ class HttpScreen : public Screen
       lv_label_set_text_fmt(label_http_req, "HTTP:%s", string2char(get_http_msg()));
       lv_obj_align(label_http_req, NULL, LV_ALIGN_CENTER, 0, -70);
 
-      btn1 = lv_btn_create(lv_scr_act(), NULL);
+      btn1 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn1, lv_event_handler);
       lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, -55, -10);
       btn1_label = lv_label_create(btn1, NULL);
       lv_label_set_text(btn1_label, "Millis");
 
-      btn2 = lv_btn_create(lv_scr_act(), NULL);
+      btn2 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn2, lv_event_handler);
       lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 55, -10);
       btn2_label = lv_label_create(btn2, NULL);
@@ -47,13 +47,13 @@ class HttpScreen : public Screen
       lv_label_set_text(label_garage, "Garage");
       lv_obj_align(label_garage, NULL, LV_ALIGN_CENTER, 0, 35);
 
-      btn3 = lv_btn_create(lv_scr_act(), NULL);
+      btn3 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn3, lv_event_handler);
       lv_obj_align(btn3, NULL, LV_ALIGN_CENTER, -55, 78);
       btn3_label = lv_label_create(btn3, NULL);
       lv_label_set_text(btn3_label, "Open");
 
-      btn4 = lv_btn_create(lv_scr_act(), NULL);
+      btn4 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn4, lv_event_handler);
       lv_obj_align(btn4, NULL, LV_ALIGN_CENTER, 55, 78);
       btn4_label = lv_label_create(btn4, NULL);

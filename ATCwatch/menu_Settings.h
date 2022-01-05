@@ -27,25 +27,25 @@ class SettingsScreen : public Screen
       lv_label_set_text(label_screen, "Settings");
       lv_obj_align(label_screen, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
-      btn1 = lv_btn_create(lv_scr_act(), NULL);
+      btn1 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn1, lv_event_handler);
       lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, -55, -50);
       btn1_label = lv_label_create(btn1, NULL);
       lv_label_set_text(btn1_label, "Date");
 
-      btn2 = lv_btn_create(lv_scr_act(), NULL);
+      btn2 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn2, lv_event_handler);
       lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 55, -50);
       btn2_label = lv_label_create(btn2, NULL);
       lv_label_set_text(btn2_label, "Time");
 
-      btn3 = lv_btn_create(lv_scr_act(), NULL);
+      btn3 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn3, lv_event_handler);
       lv_obj_align(btn3, NULL, LV_ALIGN_CENTER, -55, 50);
       btn3_label = lv_label_create(btn3, NULL);
       lv_label_set_text(btn3_label, "Colors");
 
-      btn4 = lv_btn_create(lv_scr_act(), NULL);
+      btn4 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn4, lv_event_handler);
       lv_obj_align(btn4, NULL, LV_ALIGN_CENTER, 55, 50);
       btn4_label = lv_label_create(btn4, NULL);
@@ -71,13 +71,13 @@ class SettingsScreen : public Screen
 
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
-      if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
+      if (object == btn1 && event.code == LV_EVENT_SHORT_CLICKED) {
         change_screen((Screen*)&settingsDateScreen);
-      } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
+      } else if (object == btn2 && event.code == LV_EVENT_SHORT_CLICKED) {
         change_screen((Screen*)&settingsTimeScreen);
-      } else if (object == btn3 && event == LV_EVENT_SHORT_CLICKED) {
+      } else if (object == btn3 && event.code == LV_EVENT_SHORT_CLICKED) {
         change_screen((Screen*)&settingsColorScreen);
-      } else if (object == btn4 && event == LV_EVENT_SHORT_CLICKED) {
+      } else if (object == btn4 && event.code == LV_EVENT_SHORT_CLICKED) {
         change_screen((Screen*)&settingsBrightnessScreen);
       }
     }

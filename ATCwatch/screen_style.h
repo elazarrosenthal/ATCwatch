@@ -9,20 +9,32 @@
 #include "Arduino.h"
 #include <lvgl.h>
 
-lv_color_t color_list[] = {lv_color_hsv_to_rgb(10, 5, 95), LV_COLOR_GRAY, LV_COLOR_BLACK, LV_COLOR_RED, LV_COLOR_GREEN, LV_COLOR_BLUE};
+//lv_palette_t::LV_PALETTE_GREY
+//lv_palette_t::LV_PALETTE_BLACK
+//lv_palette_t::LV_PALETTE_RED
+//lv_palette_t::LV_PALETTE_GREEN
+//lv_palette_t::LV_PALETTE_BLUE
+//
+
+lv_color_t color_list[] = {lv_color_hsv_to_rgb(10, 5, 95),
+       	lv_color_black(),
+       	lv_palette_t::LV_PALETTE_RED,
+       	lv_palette_t::LV_PALETTE_GREEN,
+       	lv_palette_t::LV_PALETTE_BLUE};
+
 
 int main_color_save = 2;
 int grad_color_save = 2;
 int font_color_save = 0;
 
-void set_gray_screen_style( lv_font_t * font = LV_FONT_DEFAULT) {
-  static lv_style_t style_screen;
-  lv_style_copy(&style_screen, &lv_style_plain);
-  style_screen.body.main_color = color_list[main_color_save];// LV_COLOR_GREEN;
-  style_screen.body.grad_color = color_list[grad_color_save];//LV_COLOR_BLUE;
-  style_screen.text.color = color_list[font_color_save];
-  style_screen.text.font = font;
-  lv_obj_set_style(lv_scr_act(), &style_screen);
+void set_gray_screen_style( const lv_font_t * font = LV_FONT_DEFAULT) {
+//  static lv_style_t style_screen;
+//  lv_style_copy(&style_screen, &lv_style_plain);
+//  style_screen.body.main_color = color_list[main_color_save];// LV_COLOR_GREEN;
+//  style_screen.body.grad_color = color_list[grad_color_save];//LV_COLOR_BLUE;
+//  style_screen.text.color = color_list[font_color_save];
+//  style_screen.text.font = font;
+//  lv_obj_set_style(lv_scr_act(), &style_screen);
 }
 
 void set_main_color(int new_color) {

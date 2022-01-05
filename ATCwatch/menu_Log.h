@@ -31,13 +31,13 @@ class LogScreen : public Screen
       lv_label_set_text(label_log, "Click on a button to test Logging");
       lv_obj_align(label_log, NULL, LV_ALIGN_CENTER, 0, -30);
 
-      btn1 = lv_btn_create(lv_scr_act(), NULL);
+      btn1 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn1, lv_event_handler);
       lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, -55, 50);
       btn1_label = lv_label_create(btn1, NULL);
       lv_label_set_text(btn1_label, "Millis");
 
-      btn2 = lv_btn_create(lv_scr_act(), NULL);
+      btn2 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn2, lv_event_handler);
       lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 55, 50);
       btn2_label = lv_label_create(btn2, NULL);
@@ -64,12 +64,13 @@ class LogScreen : public Screen
 
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
-      if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
+      if (object == btn1 && event.code
+       == LV_EVENT_SHORT_CLICKED) {
         int msg = millis();
         ble_write("AT+LOG:" + String(msg));
         lv_label_set_text_fmt(label_log, "Log: %i", msg);
         lv_obj_align(label_log, NULL, LV_ALIGN_CENTER, 0, -30);
-      } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
+      } else if (object == btn2 && event.code == LV_EVENT_SHORT_CLICKED) {
         int msg = get_battery_percent();
         ble_write("AT+LOG:" + String(msg));
         lv_label_set_text_fmt(label_log, "Log: %i", msg);

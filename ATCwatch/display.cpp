@@ -21,6 +21,7 @@
 #include "time.h"
 #include "push.h"
 
+
 #define buffer_lcd_size LV_HOR_RES_MAX * 30
 static lv_disp_buf_t disp_buf;
 static lv_color_t buf[buffer_lcd_size];
@@ -36,7 +37,17 @@ void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
   lv_disp_flush_ready(disp);
 }
 
-bool my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
+lv_indev_state_t statecast(bool state)
+{
+	if (!state)
+		return lv_indev_state_t::LV_INDEV_STATE_RELEASED;
+	else
+		return  lv_indev_state_t::LV_INDEV_STATE_PRESSED;
+}
+
+// /work0/elazar/watch/watchtest2/ATCwatch/ATCwatch/display.cpp:91:21: error: invalid conversion from 'void*' to 'void (*)(_lv_indev_drv_t*, lv_indev_data_t*)' [-fpermissive]
+// bool my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
+void my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
 {
   bool touched = false;
   touch_data_struct touch_data;
@@ -53,10 +64,10 @@ bool my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
       touched = LV_INDEV_STATE_REL;
     }
   }
-  data->state = touched;
+  data->state = statecast(touched);
   data->point.x = touch_data.xpos;
   data->point.y = touch_data.ypos;
-  return false;
+  // return false;
 }
 
 void inc_tick() {
@@ -66,25 +77,26 @@ void inc_tick() {
 void init_display() {
   initDisplay();
   lv_init();
-  lv_disp_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
+  // lv_disp_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
+  lv_disp_draw_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
 
   lv_disp_drv_t disp_drv;
   lv_disp_drv_init(&disp_drv);
   disp_drv.hor_res = 240;
   disp_drv.ver_res = 240;
   disp_drv.flush_cb = my_disp_flush;
-  disp_drv.buffer = &disp_buf;
+  disp_drv.draw_buf = &disp_buf;
   lv_disp_drv_register(&disp_drv);
 
   lv_indev_drv_t indev_drv;
   lv_indev_drv_init(&indev_drv);
   indev_drv.type = LV_INDEV_TYPE_POINTER;
-  indev_drv.read_cb = my_touchpad_read;
+  indev_drv.read_cb =  my_touchpad_read;
 
   lv_indev_drv_register(&indev_drv);
 
-  lv_theme_t *th = lv_theme_night_init(10, NULL);
-  lv_theme_set_current(th);
+//  lv_theme_t *th = lv_theme_basic_init(10);
+  //lv_theme_set_current(th);
 }
 
 void display_enable(bool state) {

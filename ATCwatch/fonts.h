@@ -2710,7 +2710,7 @@ lv_font_t mksd50 = {
 #if !(LVGL_VERSION_MAJOR == 6 && LVGL_VERSION_MINOR == 0)
     .subpx = LV_FONT_SUBPX_NONE,
 #endif
-    .dsc = &bfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
+//    .dsc = &bfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
 };
 
 #endif /*#if MKSD50*/
@@ -4845,10 +4845,10 @@ lv_font_t sans_regular = {
     .get_glyph_bitmap = lv_font_get_bitmap_fmt_txt,    /*Function pointer to get glyph's bitmap*/
     .line_height = 18,          /*The maximum line height required by the font*/
     .base_line = 3,             /*Baseline measured from the bottom of the line*/
-#if !(LVGL_VERSION_MAJOR == 6 && LVGL_VERSION_MINOR == 0)
-    .subpx = LV_FONT_SUBPX_NONE,
-#endif
-    .dsc = &font_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
+//#if !(LVGL_VERSION_MAJOR == 6 && LVGL_VERSION_MINOR == 0)
+//    .subpx = LV_FONT_SUBPX_NONE,
+//#endif
+//    .dsc = &font_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
 };
 
 #endif /*#if SANS_REGULAR*/
@@ -7133,7 +7133,7 @@ lv_font_t sans_bold = {
 #if !(LVGL_VERSION_MAJOR == 6 && LVGL_VERSION_MINOR == 0)
     .subpx = LV_FONT_SUBPX_NONE,
 #endif
-    .dsc = &cfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
+//    .dsc = &cfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
 };
 
 #endif /*#if SANS_BOLD*/
@@ -9971,7 +9971,7 @@ lv_font_t sans_bold28 = {
 #if !(LVGL_VERSION_MAJOR == 6 && LVGL_VERSION_MINOR == 0)
     .subpx = LV_FONT_SUBPX_NONE,
 #endif
-    .dsc = &hfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
+//    .dsc = &hfont_dsc           /*The custom font data. Will be accessed by `get_glyph_bitmap/dsc` */
 };
 
 #endif /*#if SANS_BOLD28*/

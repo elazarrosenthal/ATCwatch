@@ -20,31 +20,33 @@
 
 class SettingsDateScreen : public Screen
 {
+  struct rollers_s {    lv_obj_t *roller, *roller1, *roller2;};
+
   public:
     virtual void pre()
     {
       set_swipe_enabled(true);
 
-      label_screen = lv_label_create(lv_scr_act(), NULL);
+      label_screen = lv_label_create(lv_scr_act());
       lv_label_set_text(label_screen, "Set Date");
-      lv_obj_align(label_screen, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_align(label_screen, LV_ALIGN_TOP_LEFT, 0, 0);
 
       btn1 = lv_btn_create(lv_scr_act());
-      lv_obj_set_event_cb(btn1, lv_event_handler);
-      lv_obj_align(btn1, NULL, LV_ALIGN_IN_BOTTOM_MID, -55, 0);
-      lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
-      btn1_label = lv_label_create(btn1, NULL);
+      lv_obj_add_event_cb(btn1, event_handler_btn1, LV_EVENT_ALL, NULL);
+      lv_obj_align(btn1, LV_ALIGN_BOTTOM_MID, -55, 0);
+   //   lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
+      btn1_label = lv_label_create(btn1);
       lv_label_set_text(btn1_label, "Abort");
 
       btn2 = lv_btn_create(lv_scr_act());
-      lv_obj_set_event_cb(btn2, lv_event_handler);
-      lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);
-      lv_obj_align(btn2, NULL, LV_ALIGN_IN_BOTTOM_MID, 55, 0);
-      btn2_label = lv_label_create(btn2, NULL);
+      lv_obj_add_event_cb(btn2, event_handler_btn2, LV_EVENT_ALL, &rollers);
+     // lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);
+      lv_obj_align(btn2, LV_ALIGN_BOTTOM_MID, 55, 0);
+      btn2_label = lv_label_create(btn2);
       lv_label_set_text(btn2_label, "Save");
 
-      roller1 = lv_roller_create(lv_scr_act(), NULL);
-      lv_roller_set_options(roller1,
+      rollers.roller1 = lv_roller_create(lv_scr_act());
+      lv_roller_set_options(rollers.roller1,
                             "January\n"
                             "February\n"
                             "March\n"
@@ -57,13 +59,13 @@ class SettingsDateScreen : public Screen
                             "October\n"
                             "November\n"
                             "December",
-                            LV_ROLLER_MODE_INIFINITE);
+                            LV_ROLLER_MODE_INFINITE);
 
-      lv_roller_set_visible_row_count(roller1, 4);
-      lv_obj_align(roller1, NULL, LV_ALIGN_CENTER, -14, -15);
+      lv_roller_set_visible_row_count(rollers.roller1, 4);
+      lv_obj_align(rollers.roller1, LV_ALIGN_CENTER, -14, -15);
 
-      roller = lv_roller_create(lv_scr_act(), NULL);
-      lv_roller_set_options(roller,
+      rollers.roller = lv_roller_create(lv_scr_act());
+      lv_roller_set_options(rollers.roller,
                             "01\n"
                             "02\n"
                             "03\n"
@@ -95,13 +97,13 @@ class SettingsDateScreen : public Screen
                             "29\n"
                             "30\n"
                             "31",
-                            LV_ROLLER_MODE_INIFINITE);
+                            LV_ROLLER_MODE_INFINITE);
 
-      lv_roller_set_visible_row_count(roller, 4);
-      lv_obj_align(roller, roller1, LV_ALIGN_OUT_LEFT_MID, -5, 0);
+      lv_roller_set_visible_row_count(rollers.roller, 4);
+    //  lv_obj_align(rollers.roller, rollers.roller1, LV_ALIGN_OUT_LEFT_MID, -5, 0);
 
-      roller2 = lv_roller_create(lv_scr_act(), NULL);
-      lv_roller_set_options(roller2,
+      rollers.roller2 = lv_roller_create(lv_scr_act());
+      lv_roller_set_options(rollers.roller2,
                             "2020\n"
                             "2021\n"
                             "2022\n"
@@ -116,30 +118,59 @@ class SettingsDateScreen : public Screen
                             "2031\n"
                             "2032\n"
                             "2033",
-                            LV_ROLLER_MODE_INIFINITE);
+                            LV_ROLLER_MODE_INFINITE);
 
-      lv_roller_set_visible_row_count(roller2, 4);
-      lv_obj_align(roller2, roller1, LV_ALIGN_OUT_RIGHT_MID, 5, 0);
+      lv_roller_set_visible_row_count(rollers.roller2, 4);
+      // lv_obj_align(rollers.roller2, rollers.roller1, LV_ALIGN_OUT_RIGHT_MID, 5, 0);
 
       time_data_struct time_data = get_time();
-      lv_roller_set_selected(roller, ( time_data.day - 1), LV_ANIM_OFF);
-      lv_roller_set_selected(roller1, (time_data.month - 1), LV_ANIM_OFF);
-      lv_roller_set_selected(roller2, (time_data.year - 2020), LV_ANIM_OFF);
+
+      lv_roller_set_selected(rollers.roller, ( time_data.day - 1), LV_ANIM_OFF);
+      lv_roller_set_selected(rollers.roller1, (time_data.month - 1), LV_ANIM_OFF);
+      lv_roller_set_selected(rollers.roller2, (time_data.year - 2020), LV_ANIM_OFF);
     }
 
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+
+    static void event_handler_btn1(lv_event_t * e)
     {
-      if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
-        set_last_menu();
-      } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
-        int roller_day = lv_roller_get_selected(roller) + 1;
-        int roller_month = lv_roller_get_selected(roller1) + 1;
-        int roller_year = lv_roller_get_selected(roller2) + 2020;
-        SetDate(roller_year, roller_month, roller_day);
-        set_last_menu();
-        set_motor_ms(35);
-      }
+        lv_event_code_t code = lv_event_get_code(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+           set_last_menu();
+        }
     }
+
+    static void event_handler_btn2(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+
+        struct rollers_s * rs = (struct rollers_s *) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+          int roller_day = lv_roller_get_selected(rs->roller) + 1;
+          int roller_month = lv_roller_get_selected(rs->roller1) + 1;
+          int roller_year = lv_roller_get_selected(rs->roller2) + 2020;
+          SetDate(roller_year, roller_month, roller_day);
+          set_last_menu();
+          set_motor_ms(35);
+        }
+    }
+
+
+
+    // virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    // {
+    //   if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
+    //     set_last_menu();
+    //   } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
+    //     int roller_day = lv_roller_get_selected(roller) + 1;
+    //     int roller_month = lv_roller_get_selected(roller1) + 1;
+    //     int roller_year = lv_roller_get_selected(roller2) + 2020;
+    //     SetDate(roller_year, roller_month, roller_day);
+    //     set_last_menu();
+    //     set_motor_ms(35);
+    //   }
+    // }
 
     virtual void up()
     {
@@ -160,7 +191,8 @@ class SettingsDateScreen : public Screen
   private:
     lv_obj_t *label_screen;
     lv_obj_t *btn1, *btn2, *btn1_label, *btn2_label, *label_points;
-    lv_obj_t *roller, *roller1, *roller2;
+    // lv_obj_t *roller, *roller1, *roller2;
+    struct rollers_s rollers;    
 };
 
 SettingsDateScreen settingsDateScreen;

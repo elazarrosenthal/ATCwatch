@@ -28,13 +28,13 @@ class SettingsColorScreen : public Screen
       grad_color_save = get_grad_color();
       font_color_save = get_font_color();
 
-      label_screen = lv_label_create(lv_scr_act(), NULL);
+      label_screen = lv_label_create(lv_scr_act());
       lv_label_set_text(label_screen, "Set Colors");
-      lv_obj_align(label_screen, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_align(label_screen, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
       btn1 = lv_btn_create(lv_scr_act());
       lv_obj_set_event_cb(btn1, lv_event_handler);
-      lv_obj_align(btn1, NULL, LV_ALIGN_IN_BOTTOM_MID, -55, 0);
+      lv_obj_align_to(btn1, LV_ALIGN_IN_BOTTOM_MID, -55, 0);
       lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
       btn1_label = lv_label_create(btn1);
       lv_label_set_text(btn1_label, "Abort");
@@ -72,7 +72,7 @@ class SettingsColorScreen : public Screen
       lv_obj_set_event_cb(ddlist_grad, lv_event_handler);
       lv_ddlist_set_selected(ddlist_grad, grad_color_save);
 
-      grad_label = lv_label_create(lv_scr_act(), NULL);
+      grad_label = lv_label_create(lv_scr_act());
       lv_label_set_text(grad_label, "Grad");
       lv_obj_align(grad_label, ddlist_grad, LV_ALIGN_OUT_TOP_MID, 0, -2);
 
@@ -87,9 +87,9 @@ class SettingsColorScreen : public Screen
       lv_obj_set_event_cb(ddlist_font, lv_event_handler);
       lv_ddlist_set_selected(ddlist_font, font_color_save);
 
-      font_label = lv_label_create(lv_scr_act(), NULL);
+      font_label = lv_label_create(lv_scr_act());
       lv_label_set_text(font_label, "Font");
-      lv_obj_align(font_label, ddlist_font, LV_ALIGN_OUT_TOP_MID, 0, -2);
+      lv_obj_align_to(font_label, ddlist_font, LV_ALIGN_OUT_TOP_MID, 0, -2);
     }
 
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)

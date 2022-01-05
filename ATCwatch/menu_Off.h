@@ -24,10 +24,10 @@ class OffScreen : public Screen
     virtual void pre()
     {
       static const char * btns[] = {"Yes", "No", ""};
-      lv_obj_t *mbox1 = lv_mbox_create(lv_scr_act(), "Shutdown ?", "Shutdown ?", btns, 0);
+      lv_obj_t *mbox1 = lv_msgbox_create(lv_scr_act(), "Shutdown ?", "Shutdown ?", btns, 0);
       lv_obj_set_width(mbox1, 200);
       lv_obj_add_event_cb(mbox1, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
-      lv_obj_align(mbox1, NULL, LV_ALIGN_CENTER, 0, 0);
+      lv_obj_align(mbox1, LV_ALIGN_CENTER, 0, 0);
   }
 
     virtual void main()

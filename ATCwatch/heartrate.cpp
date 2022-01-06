@@ -23,15 +23,15 @@ int hr_answers;
 bool disabled_hr_allready = false;
 
 void init_hrs3300() {
-  pinMode(HRS3300_TEST, INPUT);
-  HRS3300_begin(user_i2c_read, user_i2c_write);//set the i2c read and write function so it can be a user defined i2c hardware see i2c.h
-  heartrate_enable = true;
-  end_hrs3300();
+ // pinMode(HRS3300_TEST, INPUT);
+ // HRS3300_begin(user_i2c_read, user_i2c_write);//set the i2c read and write function so it can be a user defined i2c hardware see i2c.h
+ // heartrate_enable = true;
+ // end_hrs3300();
 }
 
 void start_hrs3300() {
   if (!heartrate_enable) {
-    HRS3300_enable();
+  //  HRS3300_enable();
     heartrate_enable = true;
   }
 }
@@ -39,7 +39,7 @@ void start_hrs3300() {
 void end_hrs3300() {
   if (heartrate_enable) {
     heartrate_enable = false;
-    HRS3300_disable();
+   // HRS3300_disable();
   }
 }
 
@@ -67,7 +67,7 @@ byte get_last_heartrate() {
 
 void get_heartrate_ms() {
   if (heartrate_enable) {
-    last_heartrate_ms = HRS3300_getHR();
+   // last_heartrate_ms = HRS3300_getHR();
   }
 }
 

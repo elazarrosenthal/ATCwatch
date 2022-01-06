@@ -45,8 +45,10 @@ class AppScreen : public Screen
       lv_slider_set_value(slider, _maxApps - _menuPosition + 1, LV_ANIM_OFF);
 
       lv_obj_align(slider, LV_ALIGN_RIGHT_MID, -4, 0);
-      (slider, false);
-      lv_obj_set_click(lv_page_get_scrl(slider), LV_ANIM_OFF);
+      //lv_obj_set_click(slider, LV_ANIM_OFF);
+      //
+      
+      //lv_obj_set_click(lv_page_get_scrl(slider), LV_ANIM_OFF);
 
       label = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);

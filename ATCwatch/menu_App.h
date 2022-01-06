@@ -42,53 +42,52 @@ class AppScreen : public Screen
       slider = lv_slider_create(lv_scr_act());
       lv_obj_set_size(slider, 23, 100);
       lv_slider_set_range(slider, 1, _maxApps);
-      // lv_slider_set_value(slider, _maxApps - _menuPosition + 1, false);
-            lv_slider_set_value(slider, _maxApps - _menuPosition + 1);
+      lv_slider_set_value(slider, _maxApps - _menuPosition + 1, LV_ANIM_OFF);
 
       lv_obj_align(slider, LV_ALIGN_RIGHT_MID, -4, 0);
       (slider, false);
-      // lv_obj_set_click(lv_page_get_scrl(slider), false);
+      lv_obj_set_click(lv_page_get_scrl(slider), LV_ANIM_OFF);
 
       label = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label,  LV_ALIGN_TOP_MID, 0, 0);
 
       button_image1 = lv_imgbtn_create(lv_scr_act());
-      lv_imgbtn_set_src(button_image1,     LV_IMGBTN_STATE_RELEASED, _app1->_symbol);
-      lv_imgbtn_set_src(button_image1, LV_IMGBTN_STATE_PRESSED, _app1->_symbol);
+      lv_imgbtn_set_src(button_image1,     LV_IMGBTN_STATE_RELEASED, NULL,_app1->_symbol,NULL);
+      lv_imgbtn_set_src(button_image1, LV_IMGBTN_STATE_PRESSED, NULL,_app1->_symbol,NULL);
       // lv_imgbtn_set_toggle(button_image1, false);
       lv_obj_set_pos(button_image1, 32, 28);
-      lv_obj_add_event_cb(button_image1, event_handler_button_image1, this);
+      lv_obj_add_event_cb(button_image1, event_handler_button_image1,LV_EVENT_ALL, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app1->_title);
       lv_obj_align_to(image_label, button_image1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
 
       button_image2 = lv_imgbtn_create(lv_scr_act());
-      lv_imgbtn_set_src(button_image2, LV_BTN_STATE_REL, _app2->_symbol);
-      lv_imgbtn_set_src(button_image2, LV_BTN_STATE_PR, _app2->_symbol);
+      lv_imgbtn_set_src(button_image2, LV_IMGBTN_STATE_RELEASED, NULL,_app2->_symbol, NULL);
+      lv_imgbtn_set_src(button_image2, LV_IMGBTN_STATE_PRESSED, NULL,_app2->_symbol,NULL);
       // lv_imgbtn_set_toggle(button_image2, false);
       lv_obj_set_pos(button_image2, 136, 28);
-      lv_obj_add_event_cb(button_image2, event_handler_button_image2, this);
+      lv_obj_add_event_cb(button_image2, event_handler_button_image2,LV_EVENT_ALL, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app2->_title);
       lv_obj_align_to(image_label, button_image2, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
 
       button_image3 = lv_imgbtn_create(lv_scr_act());
-      lv_imgbtn_set_src(button_image3, LV_BTN_STATE_REL, _app3->_symbol);
-      lv_imgbtn_set_src(button_image3, LV_BTN_STATE_PR, _app3->_symbol);
+      lv_imgbtn_set_src(button_image3, LV_IMGBTN_STATE_RELEASED, NULL,_app3->_symbol,NULL);
+      lv_imgbtn_set_src(button_image3, LV_IMGBTN_STATE_PRESSED, NULL,_app3->_symbol,NULL);
       // lv_imgbtn_set_toggle(button_image3, false);
       lv_obj_set_pos(button_image3, 32, 132);
-      lv_obj_add_event_cb(button_image3, event_handler_button_image3, this);
+      lv_obj_add_event_cb(button_image3, event_handler_button_image3, LV_EVENT_ALL, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app3->_title);
-      lv_obj_align(image_label, button_image3, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+      lv_obj_align_to(image_label, button_image3, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
 
       button_image4 = lv_imgbtn_create(lv_scr_act());
-      lv_imgbtn_set_src(button_image4, LV_BTN_STATE_REL, _app4->_symbol);
-      lv_imgbtn_set_src(button_image4, LV_BTN_STATE_PR, _app4->_symbol);
+      lv_imgbtn_set_src(button_image4, LV_IMGBTN_STATE_RELEASED, NULL, _app4->_symbol, NULL);
+      lv_imgbtn_set_src(button_image4, LV_IMGBTN_STATE_PRESSED, NULL, _app4->_symbol, NULL);
       // lv_imgbtn_set_toggle(button_image4, false);
       
       lv_obj_set_pos(button_image4, 136, 132);

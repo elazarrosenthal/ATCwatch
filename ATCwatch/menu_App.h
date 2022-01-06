@@ -42,21 +42,23 @@ class AppScreen : public Screen
       slider = lv_slider_create(lv_scr_act());
       lv_obj_set_size(slider, 23, 100);
       lv_slider_set_range(slider, 1, _maxApps);
-      lv_slider_set_value(slider, _maxApps - _menuPosition + 1, false);
+      // lv_slider_set_value(slider, _maxApps - _menuPosition + 1, false);
+            lv_slider_set_value(slider, _maxApps - _menuPosition + 1);
+
       lv_obj_align(slider, LV_ALIGN_RIGHT_MID, -4, 0);
-      lv_obj_set_click(slider, false);
-      lv_obj_set_click(lv_page_get_scrl(slider), false);
+      (slider, false);
+      // lv_obj_set_click(lv_page_get_scrl(slider), false);
 
       label = lv_label_create(lv_scr_act());
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label,  LV_ALIGN_TOP_MID, 0, 0);
 
       button_image1 = lv_imgbtn_create(lv_scr_act());
-      lv_imgbtn_set_src(button_image1, LV_BTN_STATE_REL, _app1->_symbol);
-      lv_imgbtn_set_src(button_image1, LV_BTN_STATE_PR, _app1->_symbol);
-      lv_imgbtn_set_toggle(button_image1, false);
+      lv_imgbtn_set_src(button_image1,     LV_IMGBTN_STATE_RELEASED, _app1->_symbol);
+      lv_imgbtn_set_src(button_image1, LV_IMGBTN_STATE_PRESSED, _app1->_symbol);
+      // lv_imgbtn_set_toggle(button_image1, false);
       lv_obj_set_pos(button_image1, 32, 28);
-      lv_obj_set_event_cb(button_image1, lv_event_handler);
+      lv_obj_add_event_cb(button_image1, event_handler_button_image1, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app1->_title);
@@ -65,9 +67,9 @@ class AppScreen : public Screen
       button_image2 = lv_imgbtn_create(lv_scr_act());
       lv_imgbtn_set_src(button_image2, LV_BTN_STATE_REL, _app2->_symbol);
       lv_imgbtn_set_src(button_image2, LV_BTN_STATE_PR, _app2->_symbol);
-      lv_imgbtn_set_toggle(button_image2, false);
+      // lv_imgbtn_set_toggle(button_image2, false);
       lv_obj_set_pos(button_image2, 136, 28);
-      lv_obj_set_event_cb(button_image2, lv_event_handler);
+      lv_obj_add_event_cb(button_image2, event_handler_button_image2, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app2->_title);
@@ -76,9 +78,9 @@ class AppScreen : public Screen
       button_image3 = lv_imgbtn_create(lv_scr_act());
       lv_imgbtn_set_src(button_image3, LV_BTN_STATE_REL, _app3->_symbol);
       lv_imgbtn_set_src(button_image3, LV_BTN_STATE_PR, _app3->_symbol);
-      lv_imgbtn_set_toggle(button_image3, false);
+      // lv_imgbtn_set_toggle(button_image3, false);
       lv_obj_set_pos(button_image3, 32, 132);
-      lv_obj_set_event_cb(button_image3, lv_event_handler);
+      lv_obj_add_event_cb(button_image3, event_handler_button_image3, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app3->_title);
@@ -87,9 +89,10 @@ class AppScreen : public Screen
       button_image4 = lv_imgbtn_create(lv_scr_act());
       lv_imgbtn_set_src(button_image4, LV_BTN_STATE_REL, _app4->_symbol);
       lv_imgbtn_set_src(button_image4, LV_BTN_STATE_PR, _app4->_symbol);
-      lv_imgbtn_set_toggle(button_image4, false);
+      // lv_imgbtn_set_toggle(button_image4, false);
+      
       lv_obj_set_pos(button_image4, 136, 132);
-      lv_obj_set_event_cb(button_image4, lv_event_handler);
+      lv_obj_add_event_cb(button_image4, event_handler_button_image4,LV_EVENT_ALL, this);
 
       image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app4->_title);
@@ -116,20 +119,62 @@ class AppScreen : public Screen
       display_home();
     }
 
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    static void event_handler_button_image1(lv_event_t * e)
     {
-      if (event == LV_EVENT_SHORT_CLICKED) {
-        if (object == button_image1) {
-          change_screen(_app1->_screen);
-        } else if (object == button_image2) {
-          change_screen(_app2->_screen);
-        } else if (object == button_image3) {
-          change_screen(_app3->_screen);
-        } else if (object == button_image4) {
-          change_screen(_app4->_screen);
+        lv_event_code_t code = lv_event_get_code(e);
+        AppScreen * p = (AppScreen *) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+          change_screen(p->_app1->_screen);
         }
-      }
     }
+
+    static void event_handler_button_image2(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        AppScreen * p = (AppScreen *) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+          change_screen(p->_app2->_screen);
+        }
+    }
+
+    static void event_handler_button_image3(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        AppScreen * p = (AppScreen *) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+          change_screen(p->_app3->_screen);
+        }
+    }
+
+    static void event_handler_button_image4(lv_event_t * e)
+    {
+        lv_event_code_t code = lv_event_get_code(e);
+        AppScreen * p = (AppScreen *) lv_event_get_user_data(e);
+
+        if(code == LV_EVENT_SHORT_CLICKED) {
+          change_screen(p->_app4->_screen);
+        }
+    }
+
+
+
+    // virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    // {
+    //   if (event == LV_EVENT_SHORT_CLICKED) {
+    //     if (object == button_image1) {
+    //       change_screen(_app1->_screen);
+    //     } else if (object == button_image2) {
+    //       change_screen(_app2->_screen);
+    //     } else if (object == button_image3) {
+    //       change_screen(_app3->_screen);
+    //     } else if (object == button_image4) {
+    //       change_screen(_app4->_screen);
+    //     }
+    //   }
+    // }
 
   private:
     app_struct* _app1;

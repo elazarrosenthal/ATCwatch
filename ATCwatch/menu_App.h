@@ -39,17 +39,17 @@ class AppScreen : public Screen
 
     virtual void pre()
     {
-      slider = lv_slider_create(lv_scr_act(), NULL);
+      slider = lv_slider_create(lv_scr_act());
       lv_obj_set_size(slider, 23, 100);
       lv_slider_set_range(slider, 1, _maxApps);
       lv_slider_set_value(slider, _maxApps - _menuPosition + 1, false);
-      lv_obj_align(slider, NULL, LV_ALIGN_IN_RIGHT_MID, -4, 0);
+      lv_obj_align(slider, LV_ALIGN_RIGHT_MID, -4, 0);
       lv_obj_set_click(slider, false);
       lv_obj_set_click(lv_page_get_scrl(slider), false);
 
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
-      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 0);
+      lv_obj_align(label, NULL, LV_ALIGN_TOP_MID, 0, 0);
 
       button_image1 = lv_imgbtn_create(lv_scr_act(), NULL);
       lv_imgbtn_set_src(button_image1, LV_BTN_STATE_REL, _app1->_symbol);
@@ -73,25 +73,25 @@ class AppScreen : public Screen
       lv_label_set_text(image_label, _app2->_title);
       lv_obj_align(image_label, button_image2, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
 
-      button_image3 = lv_imgbtn_create(lv_scr_act(), NULL);
+      button_image3 = lv_imgbtn_create(lv_scr_act());
       lv_imgbtn_set_src(button_image3, LV_BTN_STATE_REL, _app3->_symbol);
       lv_imgbtn_set_src(button_image3, LV_BTN_STATE_PR, _app3->_symbol);
       lv_imgbtn_set_toggle(button_image3, false);
       lv_obj_set_pos(button_image3, 32, 132);
       lv_obj_set_event_cb(button_image3, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app3->_title);
       lv_obj_align(image_label, button_image3, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
 
-      button_image4 = lv_imgbtn_create(lv_scr_act(), NULL);
+      button_image4 = lv_imgbtn_create(lv_scr_act());
       lv_imgbtn_set_src(button_image4, LV_BTN_STATE_REL, _app4->_symbol);
       lv_imgbtn_set_src(button_image4, LV_BTN_STATE_PR, _app4->_symbol);
       lv_imgbtn_set_toggle(button_image4, false);
       lv_obj_set_pos(button_image4, 136, 132);
       lv_obj_set_event_cb(button_image4, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(lv_scr_act());
       lv_label_set_text(image_label, _app4->_title);
       lv_obj_align(image_label, button_image4, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
     }
